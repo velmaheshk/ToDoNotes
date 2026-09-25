@@ -1,0 +1,64 @@
+.todo-notes {
+  max-width: 480px;
+  margin: 0 auto;
+  font-family: system-ui, sans-serif;
+}
+
+.count {
+  font-weight: normal;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.add-form {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.add-form input {
+  flex: 1;
+  padding: 6px 8px;
+}
+
+.note-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.note-list li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.note-list li.completed .note-text strong {
+  text-decoration: line-through;
+  color: #999;
+}
+
+.note-text {
+  flex: 1;
+}
+
+.note-text p {
+  margin: 2px 0 0;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+button {
+  cursor: pointer;
+}
+
+.empty {
+  color: #888;
+  font-style: italic;
+}
+
+.clear-btn {
+  margin-top: 12px;
+}

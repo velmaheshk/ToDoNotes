@@ -1,0 +1,65 @@
+<div class="todo-notes">
+  <h2>Todo Notes <span class="count">({{ notesService.pendingCount() }} pending)</span></h2>
+
+  <div class="add-form">
+    <input
+      type="text"
+      placeholder="Title"
+      [ngModel]="newTitle()"
+      (ngModelChange)="newTitle.set($event)"
+      (keyup.enter)="addNote()"
+    />
+    <input
+      type="text"
+      placeholder="Description (optional)"
+      [ngModel]="newDescription()"
+      (ngModelChange)="newDescription.set($event)"
+      (keyup.enter)="addNote()"
+    />
+    <button (click)="addNote()" [disabled]="!newTitle().trim()">Add</button>
+  </div>
+
+  <ul class="note-list">
+    <li *ngFor="let note of notesService.notes()" [class.completed]="note.completed">
+      <ng-container *ngIf="editingId() === note.id; else viewMode">
+        <input
+          type="text"
+          [ngModel]="editTitle()"
+          (ngModelChange)="editTitle.set($event)"
+        />
+        <input
+          type="text"
+          [ngModel]="editDescription()"
+          (ngModelChange)="editDescription.set($event)"
+        />
+        <button (click)="saveEdit(note.id)">Save</button>
+        <button (click)="cancelEdit()">Cancel</button>
+      </ng-container>
+
+      <ng-template #viewMode>
+        <input
+          type="checkbox"
+          [checked]="note.completed"
+          (change)="toggle(note.id)"
+        />
+        <div class="note-text">
+          <strong>{{ note.title }}</strong>
+          <p *ngIf="note.description">{{ note.description }}</p>
+        </div>
+        <button (click)="startEdit(note.id, note.title, note.description)">Edit</button>
+        <button (click)="delete(note.id)">Delete</button>
+      </ng-template>
+    </li>
+  </ul>
+
+  <p class="empty" *ngIf="notesService.notes().length === 0">No notes yet — add one above.</p>
+
+  <button
+    class="clear-btn"
+    *ngIf="notesService.notes().length > 0"
+    (click)="clearCompleted()"
+  >
+    Clear completed
+  </button>
+</div>
+
